@@ -7,6 +7,8 @@ import { Menu } from "./components/Menu";
 import { CountDown } from "./components/CountDown";
 import { Input } from "./components/Input";
 import { Cycles } from "./components/Cycles";
+import { Button } from "./components/Button";
+import { PlayCircle, StopCircle } from "lucide-react";
 
 export function App() {
   return (
@@ -25,14 +27,18 @@ export function App() {
           <div className="formRow">
             <Input id="task" type="text" labelText="text" placeholder="Sei la" />
           </div>
+
           <div className="formRow">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
+
           <div className="formRow">
             <Cycles />
           </div>
+
           <div className="formRow">
-            <button type="submit">Start</button>
+            <Button type="submit" icon={<PlayCircle />} />
+            <Button type="submit" icon={<StopCircle />} color="red" />
           </div>
         </form>
       </Container>
