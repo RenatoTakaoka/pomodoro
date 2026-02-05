@@ -5,11 +5,16 @@ import { Input } from "../Input";
 import { useRef } from "react";
 import type { TaskModel } from "../../models/TaskModel";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
+import { getNextCycle } from "../../utils/getNextCycle";
+import { getNextCycleType } from "../../utils/getNextCycleType";
 
 export function MainForm() {
-  const { setState } = useTaskContext();
+  const { state, setState } = useTaskContext();
 
   const taskNameInput = useRef<HTMLInputElement>(null);
+
+  const nextCycle = getNextCycle(state.currentCycle);
+  const nextCycleType = getNextCycleType(state.currentCycle);
 
   function handleCreateNewTask(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -32,13 +37,13 @@ export function MainForm() {
       completeDate: null,
       interruptDate: null,
       duration: 1,
-      type: "workTime",
+      type: nextCycleType,
     };
 
     setState((prevState) => ({
       ...prevState,
       activeTask: newTask,
-      currentCycle: 1,
+      currentCycle: nextCycle,
       secondsRemaining: newTask.duration * 60,
       formattedSecondsRemaining: `${String(newTask.duration).padStart(2, "0")}:00`,
       tasks: [...prevState.tasks, newTask],
