@@ -15,7 +15,7 @@ export function MainForm() {
   const taskNameInput = useRef<HTMLInputElement>(null);
 
   const nextCycle = getNextCycle(state.currentCycle);
-  const nextCycleType = getNextCycleType(state.currentCycle);
+  const nextCycleType = getNextCycleType(nextCycle);
 
   function handleCreateNewTask(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,7 +41,7 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       activeTask: newTask,
       currentCycle: nextCycle,
@@ -62,6 +62,7 @@ export function MainForm() {
           labelText="text"
           placeholder="Sei la"
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
 
@@ -69,9 +70,11 @@ export function MainForm() {
         <p>O proximo intervalo eh de 00:00 minutos</p>
       </div>
 
-      <div className="formRow">
-        <Cycles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className="formRow">
+          <Cycles />
+        </div>
+      )}
 
       <div className="formRow">
         <Button type="submit" icon={<PlayCircle />} />
