@@ -1,23 +1,13 @@
 import styles from "./styles.module.css";
-import { useEffect, useState } from "react";
 import { History, House, Moon, Settings, Sun } from "lucide-react";
-
-type Themes = "light" | "dark";
+import { useThemeContext } from "../../contexts/ThemeContext/useThemeContext";
 
 export function Menu() {
-  const [theme, setTheme] = useState<Themes>(() => {
-    const storedTheme = localStorage.getItem("theme");
-    return (storedTheme === "light" || storedTheme === "dark") ? storedTheme : "light";
-  });
+  const { theme, setTheme } = useThemeContext();
 
-  function handleChangeTheme(newTheme: Themes) {
-    setTheme(newTheme);
+  function handleChangeTheme() {
+    setTheme(theme === "light" ? "dark" : "light");
   }
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   return (
     <nav className={styles.menu}>
@@ -52,7 +42,7 @@ export function Menu() {
         title="Alterar tema"
         onClick={e => {
           e.preventDefault();
-          handleChangeTheme(theme === "light" ? "dark" : "light");
+          handleChangeTheme();
         }}
       >
         {theme === "light" ? <Sun /> : <Moon />}
