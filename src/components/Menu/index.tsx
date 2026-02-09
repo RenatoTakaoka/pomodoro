@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 import { History, House, Moon, Settings, Sun } from "lucide-react";
 import { useThemeContext } from "../../contexts/ThemeContext/useThemeContext";
+import { Link } from "react-router";
 
 export function Menu() {
   const { theme, setTheme } = useThemeContext();
@@ -11,30 +12,30 @@ export function Menu() {
 
   return (
     <nav className={styles.menu}>
-      <a
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="/"
         aria-label="Home"
         title="Ir para a Home"
       >
         <House />
-      </a>
-      <a
+      </Link>
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="/history"
         aria-label="Histórico"
         title="Ir para o Histórico"
       >
         <History />
-      </a>
-      <a
+      </Link>
+      <Link
         className={styles.menuLink}
-        href="#"
+        to="/settings"
         aria-label="Configurações"
         title="Ir para as Configurações"
       >
         <Settings />
-      </a>
+      </Link>
       <a
         className={styles.menuLink}
         href="#"
