@@ -38,7 +38,7 @@ export function taskReducer(state: TaskStateModel, action: TaskActionModel): Tas
       };
     }
     case TaskActionTypes.RESET_TASKS: {
-      return {...initialTaskState};
+      return { ...initialTaskState, config: state.config };
     }
     case TaskActionTypes.COUNT_DOWN: {
       const { secondsRemaining } = action.payload;
@@ -60,6 +60,17 @@ export function taskReducer(state: TaskStateModel, action: TaskActionModel): Tas
           }
           return task;
         }),
+      };
+    }
+    case TaskActionTypes.CHANGE_SETTINGS: {
+      const { workTime, shortBreakTime, longBreakTime } = action.payload;
+      return {
+        ...state,
+        config: {
+          workTime,
+          shortBreakTime,
+          longBreakTime,
+        },
       };
     }
     default: {

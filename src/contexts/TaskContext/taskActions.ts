@@ -6,6 +6,8 @@ export enum TaskActionTypes {
   RESET_TASKS = "RESET_TASKS",
   COUNT_DOWN = "COUNT_DOWN",
   COMPLETE_TASK = "COMPLETE_TASK",
+  CHANGE_SETTINGS = "CHANGE_SETTINGS",
+  RESET_SETTINGS = "RESET_SETTINGS",
 }
 
 export type TaskActionModel =
@@ -25,4 +27,12 @@ export type TaskActionModel =
     }
   | {
       type: TaskActionTypes.COMPLETE_TASK;
+    }
+  | {
+      type: TaskActionTypes.CHANGE_SETTINGS;
+      payload: {
+        workTime: number;
+        shortBreakTime: number;
+        longBreakTime: number;
+      };
     };
